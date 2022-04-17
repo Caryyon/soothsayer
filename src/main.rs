@@ -4,6 +4,7 @@ use std::process::{Command, Stdio};
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
 #[clap(propagate_version = true)]
+/// This is a cli tool that helps automate some of the work flow and project setup for SEER. It will make running projects locally a lot easier as well as setting up new projects.
 struct Cli {
     #[clap(subcommand)]
     command: Commands,
@@ -11,6 +12,7 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
+    /// Walks you through initial setup of SoothSayer
     Init { x: Option<String>},
     /// Runs the provided npm script
     Run { command: Option<String> },
@@ -18,7 +20,6 @@ enum Commands {
 
 fn main() {
     let cli = Cli::parse();
-
     match &cli.command {
         Commands::Init { x: _ } => {
             // setup a intaractive script
