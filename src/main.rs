@@ -11,6 +11,7 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
+    Init { x: Option<String>},
     /// Runs the provided npm script
     Run { command: Option<String> },
 }
@@ -19,15 +20,17 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
+        Commands::Init { x: _ } => {
+            // setup a intaractive script
+            // to get users info and save it to a config
+            todo!("Haven't got this going yet.")
+        }
         Commands::Run { command } => {
-
-        let output = Command::new("npm")
+        Command::new("npm")
             .arg(command.as_ref().unwrap())
             .stdout(Stdio::inherit())
             .output()
             .expect("Failed to execute command");
-
-            assert_eq!(String::from_utf8_lossy(&output.stdout), "");
         }
     }
 }
